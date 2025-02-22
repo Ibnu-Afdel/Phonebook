@@ -17,29 +17,6 @@ app.use(
 app.use(cors());
 app.use(express.static("dist"));
 
-let persons = [
-  {
-    id: "1",
-    name: "Arto Hellas",
-    number: "040-123456",
-  },
-  {
-    id: "2",
-    name: "Ada Lovelace",
-    number: "39-44-5323523",
-  },
-  {
-    id: "3",
-    name: "Dan Abramov",
-    number: "12-43-234345",
-  },
-  {
-    id: "4",
-    name: "Mary Poppendieck",
-    number: "39-23-6423122",
-  },
-];
-
 app.get("/", (request, response) => {
   response.send("<h1>Hello World</h1>");
 });
@@ -67,7 +44,7 @@ app.get("/info", (request, response) => {
         `<p>Phonebook has started for ${count} people</p> <p>${new Date().toLocaleString()}</p>`
       );
     })
-    .catch((error) => {
+    .catch(() => {
       response.status(500).send({ error: "Database error" });
     });
 });
@@ -79,7 +56,7 @@ app.get("/api/persons/:id", (request, response, next) => {
 });
 
 app.delete("/api/persons/:id", (request, response) => {
-  Person.findByIdAndDelete(request.params.id).then((result) => {
+  Person.findByIdAndDelete(request.params.id).then(() => {
     response.status(204).end();
   });
 });
